@@ -1,6 +1,7 @@
 import java.awt.*; 
 import java.awt.event.*;
 import javax.swing.*;
+import java.text.DecimalFormat;
 
 
 
@@ -28,11 +29,11 @@ import javax.swing.*;
 			@Override
 			public void actionPerformed(ActionEvent ek){
 				char[] password = jpfpassword.getPassword();
-				String pw = new String(password);
+				String pwd = new String(password);
 				String truepassword = "0000";
-				if(pw.equals(truepassword)){
+				if(pwd.equals(truepassword)){
 					status.setText("Your password is true.");
-					pw.setVisible(false);
+					setVisible(false);
 					Calculator_GUI gui = new Calculator_GUI();
 					gui.pack();
 					gui.setSize(400, 500);
@@ -64,7 +65,7 @@ import javax.swing.*;
 
 class Calculator_GUI extends JFrame{
 	
-	private JLabel jlresult = new JLabel("", JLabel.RIGHT);
+	private JTextField jlresult = new JTextField(15);
 	private JButton jbtone = new JButton("1");
 	private JButton jbttwo = new JButton("2");
 	private JButton jbtthree = new JButton("3");
@@ -91,7 +92,7 @@ class Calculator_GUI extends JFrame{
   
 	public Calculator_GUI(){
 		
-		JPanel p1 = new JPanel(new GridLayout(4,5,3,3));
+		JPanel p1 = new JPanel(new GridLayout(4,5));
 		p1.add(jbtplus);
 		p1.add(jbtone);
 		p1.add(jbttwo);
@@ -114,12 +115,12 @@ class Calculator_GUI extends JFrame{
 		p1.add(jbtsquare);
 		
     
-		JPanel p2 = new JPanel(new GridLayout(1,2,3,0));
+		JPanel p2 = new JPanel(new GridLayout(1,2));
 
 		p2.add(jbtdelete);
 		p2.add(jbtcalculate);
 		
-		JPanel p3 = new JPanel(new GridLayout(1,1));
+		JPanel p3 = new JPanel();
 		p3.add(jlresult);
 		
 		
@@ -156,99 +157,99 @@ class Calculator_GUI extends JFrame{
 	}
 	
 	private class ButtonListener implements ActionListener{
+		int staticplus = 0;
+		double number = 0;
+		double result = 0;
+		double number2 = 0;
 		@Override
 		public void actionPerformed(ActionEvent ev){
-			int staticplus = 0;
-			double number = 0;
-			double result = 0;
-			double numbercheck = 0 ;
 			
 			if(ev.getSource() == jbtplus){
 		
 				number = Double.parseDouble(jlresult.getText());
 				staticplus = 1;
-				jlresult.setText("0");
+				jlresult.setText("");
 			}			
 			
 			else if(ev.getSource() == jbtone){
-				number = Double.parseDouble(jlresult.getText());			
-				jlresult.setText(numbercheck + "1");
+				jlresult.setText(jlresult.getText() + "1");
+				number = Double.parseDouble(jlresult.getText());	
 			}
 			
 			else if(ev.getSource() == jbttwo){
+				jlresult.setText(jlresult.getText() +"2");
 				number = Double.parseDouble(jlresult.getText());
-				jlresult.setText("2");
 			}
 			
 			else if(ev.getSource() == jbtthree){
+				jlresult.setText(jlresult.getText() +"3");
 				number = Double.parseDouble(jlresult.getText());
-				jlresult.setText("3");
 			}
 			
 			else if(ev.getSource() == jbtfour){
+				jlresult.setText(jlresult.getText() +"4");
 				number = Double.parseDouble(jlresult.getText());
-				jlresult.setText("4");
 			}
 			
 			else if(ev.getSource() == jbtfive){
+				jlresult.setText(jlresult.getText() +"5");
 				number = Double.parseDouble(jlresult.getText());
-				jlresult.setText("5");
 			}
 			
 			else if(ev.getSource() == jbtsix){
-				numbercheck = Double.parseDouble(jlresult.getText());
-				jlresult.setText("6");
+				jlresult.setText(jlresult.getText() +"6");
+				number = Double.parseDouble(jlresult.getText());
 				
 			}
 			
 			else if(ev.getSource() == jbtseven){
+				jlresult.setText(jlresult.getText() +"7");
 				number = Double.parseDouble(jlresult.getText());
-				jlresult.setText("7");
 				
 			}
 			
 			else if(ev.getSource() == jbteight){
-				number = Double.parseDouble(jlresult.getText());	
-				jlresult.setText("8");
+				jlresult.setText(jlresult.getText() +"8");
+				number = Double.parseDouble(jlresult.getText());
 	
 			}
 			
 			else if(ev.getSource() == jbtnine){
+				jlresult.setText(jlresult.getText() +"9");
 				number = Double.parseDouble(jlresult.getText());
-				jlresult.setText("9");
 				
 			}
 			
 			else if(ev.getSource() == jbtzero){
+				jlresult.setText(jlresult.getText()+"0");
 				number = Double.parseDouble(jlresult.getText());
-				jlresult.setText("0");			
 			}
 			
 			else if(ev.getSource() == jbtminus){
 					number = Double.parseDouble(jlresult.getText());
 					staticplus = 2;
-					jlresult.setText("0");
+					jlresult.setText("");
 			}
 			
 			else if(ev.getSource() == jbttime){
 
 					number = Double.parseDouble(jlresult.getText());
 					staticplus = 3;
-					jlresult.setText("0");
+					jlresult.setText("");
 			}
 			
 			else if(ev.getSource() == jbtdivide){
 			
 					number = Double.parseDouble(jlresult.getText());
 					staticplus = 4;
-					jlresult.setText("0");
+					jlresult.setText("");
 	
 			}
 			
 			else if(ev.getSource() == jbtsin){
 					number = Double.parseDouble(jlresult.getText());
 					result = Math.sin(number);
-					String Value = new String(""+result_decimal);
+					String Value = new String(""+result);
 					jlresult.setText(Value);
 	
 			}
@@ -256,7 +257,7 @@ class Calculator_GUI extends JFrame{
 			else if(ev.getSource() == jbtcos){
 					number = Double.parseDouble(jlresult.getText());
 					result = Math.cos(number);
-					String Value = new String(""+result_decimal);
+					String Value = new String(""+result);
 					jlresult.setText(Value);
 					
 			}
@@ -265,21 +266,21 @@ class Calculator_GUI extends JFrame{
 	
 					number = Double.parseDouble(jlresult.getText());
 					result = Math.tan(number);
-					String Value = new String(""+result_decimal);
+					String Value = new String(""+result);
 					jlresult.setText(Value);
 					
 			}
 			
 			else if(ev.getSource() == jbtdecimal){
 					number = Double.parseDouble(jlresult.getText());
-					jlresult.setText(numbercheck + ".");
+					jlresult.setText(jlresult.getText() + ".");
 					
 			}
 			
 			else if(ev.getSource() == jbtroot){
 					number = Double.parseDouble(jlresult.getText());
 					result = Math.pow(number , 0.5);
-					String Value = new String(""+result_decimal);
+					String Value = new String(""+result);
 					jlresult.setText(Value);
 					
 				
@@ -288,7 +289,7 @@ class Calculator_GUI extends JFrame{
 			else if(ev.getSource() == jbtsquare){
 					number = Double.parseDouble(jlresult.getText());
 					result = Math.pow(number , 2);
-					String Value = new String(""+result_decimal);
+					String Value = new String(""+result);
 					jlresult.setText(Value);
 				
 			}	
@@ -297,19 +298,19 @@ class Calculator_GUI extends JFrame{
 				number = 0;
 				result = 0; 
 				staticplus = 0;
-				jlresult.setText("0");
+				jlresult.setText("");
 			}
 			
 			else if(ev.getSource() == jbtcalculate){
-				result = Double.parseDouble(jlresult.getText());
+				number2 = Double.parseDouble(jlresult.getText());
 				
 					
 					switch(staticplus){
-						case 0:result = result;break;
-						case 1:result = number + result;break;
-						case 2:result = number - result;break;
-						case 3:result = number * result;break;
-						case 4:result = number / result;
+						case 0:result = number2;break;
+						case 1:result = number + number2;break;
+						case 2:result = number - number2;break;
+						case 3:result = number * number2;break;
+						case 4:result = number / number2;
 					}
 					String Value = new String(""+result);
 					jlresult.setText(Value);
@@ -318,7 +319,7 @@ class Calculator_GUI extends JFrame{
 				
 				staticplus = 0;
 				number = 0;
-				result = 0; 
+				number2 = 0;
 				
 			}
 		
